@@ -8,6 +8,7 @@
 
 #if defined(_WIN32)
 #include <SDL.h>
+#include <GL/glew.h>
 #elif defined(__LINUX__)
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
