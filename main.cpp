@@ -38,7 +38,13 @@ int main() {
 
 /// IMPORTANT NOTICE: You need to set debug exe to always run with the Nvidia graphics processor or it crash :(
 
+#if defined(_WIN32)
 #include <SDL.h>
+#elif defined(__linux__)
+#include <SDL2/SDL.h>
+#elif defined(__APPLE__)
+#error Apples in Bloom
+#endif
 #include <GL/glew.h>
 #include <stdio.h>
 #include "Render.h"

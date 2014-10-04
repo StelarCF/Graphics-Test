@@ -5,22 +5,33 @@
 #include <fstream>
 #include <cstdio>
 #include <vector>
+
+#if defined(_WIN32)
 #include <SDL.h>
+#elif defined(__LINUX__)
+#include <SDL2/SDL.h>
+#include <GL/glew.h>
+#define strcpy_s(x,y,z) strcpy(x,z)
+#elif defined(__APPLE__)
+#error Buy some apples!
+#endif
+
 #include "vmath.h"
 #include "lodepng.h"
 #include <ctime>
+using namespace std;
 
 /// NOTES TO SELF
-/// Fix time delta
+/// Fix time delta [./] Done! See the render loop
 
 GLuint program;
 GLuint vertex_array_object;
 
 /// Loads, compiles and attaches a shader from a filename into an OpenGL program
-void LCAShader (string fileName, GLuint program, GLenum shaderType) {
+void LCAShader(string fileName, GLuint program, GLenum shaderType) {
 	stringstream strStream;
 	string source;
-	ifstream file(fileName);
+	ifstream file(fileName.c_str());
 	if(!file.is_open()) {
 		printf("Fatal error: Shader source not found");
 		throw "Fatal Error: Shader source not found";
